@@ -1,1 +1,2 @@
-print('Vitya')
+x = "LETSGO"
+print(x)
