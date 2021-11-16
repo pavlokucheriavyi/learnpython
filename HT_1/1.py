@@ -7,7 +7,7 @@ Write a script which accepts a sequence of comma-separated numbers from user and
 '''
 
 
-my_var = input().split(",")
+my_var = input("Enter your set of numbers, example(1, 3, 5, ...):").split(",")
 my_list = list(my_var)
 my_tuple = tuple(my_var)
 
