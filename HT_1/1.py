@@ -9,7 +9,7 @@ Write a script which accepts a sequence of comma-separated numbers from user and
 
 my_var = input().split(",")
 my_list = list(my_var)
-my_set = tuple(my_var)
+my_tuple = tuple(my_var)
 
 print("List :", my_list)
-print("Tuple :", my_set)
+print("Tuple :", my_tuple)
