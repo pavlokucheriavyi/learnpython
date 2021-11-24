@@ -14,6 +14,8 @@ dict_3 = {5:50, 6:60}
 list_1 = [dict_1, dict_2, dict_3]
 
 for i in range(len(list_1)):
+    if list_1[i] == 0:
+        continue
     dict_1.update(list_1[i])
 
 print(dict_1)
