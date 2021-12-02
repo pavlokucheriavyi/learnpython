@@ -51,6 +51,6 @@ def my_range(*args):
         print("NotEnoughError: the 'range' function must accept at least one element")
 
 
-list_of_range_function = my_range()
+list_of_range_function = my_range(10)
 for elem in list_of_range_function:
     print(elem)
