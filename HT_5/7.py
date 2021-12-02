@@ -6,17 +6,12 @@
 
 my_list = [1, 2, 3, 4, 5, 6]
 
-def my_func(some_list):
-    my_gen = (x for x in some_list)
-    some = True
-    try:
-        while some == True:
-            print(next(my_gen))
-    except:
-        return
-
-def generator(list_1):
+def NewGenerator(list_1) :
     while True:
-        my_func(list_1)
+        for i in list_1:
+            yield i
 
-generator(my_list)
+mygen = NewGenerator(my_list)
+
+for elem in mygen:
+    print(elem)
