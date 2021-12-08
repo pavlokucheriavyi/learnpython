@@ -1,9 +1,8 @@
 {
   "Pasha": [
-    "The client Pasha has replenished the sum of money of $100. The rest of money - 600",
-    "The client Pasha withdrew $300 from the account. The rest of money - 300",
-    "The client Pasha has replenished the sum of money of $500. The rest of money - 800",
-
+    "The client Pasha has replenished the sum of money of $300. The rest of money - 1620",
+    "The client Pasha withdrew $500 from the account. The rest of money - 1120",
+    "The client Pasha has replenished the sum of money of $400. The rest of money - 1520"
   ],
   "Natasha": [
     "The client Natasha withdrew $50 from the account. The rest of money - 100"

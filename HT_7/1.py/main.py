@@ -23,11 +23,13 @@ def check_usernames():
         if key in data_usernames and value == data_usernames[key]:
             print("Welcome :)".center(30, ' '))
             return my_input1
-        elif i == 0:
-            l = "Thank you! Good luck :)"
-            return l
+        if i == 0:
+            x = "Thank you! Good luck :)"
+            return x
+
         else:
             print(f"Wrong login or password. Enter again, you have {i} attempt left! ")
+
 
 with open('usernames_balance.json', 'r+') as file_2:
     data_balance = json.load(file_2)
@@ -88,7 +90,7 @@ def append_balance(user):
                 except MyTypeError as Mte:
                     print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
                 except:
-                    print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')        
+                    print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
         except MyTypeError as Mte:
             print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
         except:
@@ -181,7 +183,7 @@ def trans_func(user):
 
 
 
-def main_func(result=check_usernames()):
+def main_func(result):
     if result in data_balance:
         print('Main menu'.center(30, ' '))
         print('1. Check your balance')
@@ -189,32 +191,33 @@ def main_func(result=check_usernames()):
         print('3. Cash out')
         print('4. Check your last transaktions')
         print('5. Exit')
-    flag = True
-    while flag == True:
-        try:
-            main_input = int(input("Select the desired operation. Enter from 1 to 5: "))
-            fast_list = [x for x in range(1, 6)]
-            if main_input < 1 or main_input > 5:
-                raise MyTypeError('number')
+        flag = True
+        while flag == True:
+            try:
+                main_input = int(input("Select the desired operation. Enter from 1 to 5: "))
+                fast_list = [x for x in range(1, 6)]
+                if main_input < 1 or main_input > 5:
+                    raise MyTypeError('number')
 
-            flag = False
-            if main_input == 1:
-                check_balance(result)
-            elif main_input == 2:
-                append_balance(result)
-            elif main_input == 3:
-                cash_out_func(result)
-            elif main_input == 4:
-                trans_func(result)
-            elif main_input == 5:
-                print('Thank you! Good luck :)')
-
-
-        except MyTypeError as Mte:
-            print(f'Enter a {Mte.text} in the range from 1 to 4, example(3)')
-        except:
-            print(f"You must choose a number. Please enter from 1 to 4, example(3)")
+                flag = False
+                if main_input == 1:
+                    check_balance(result)
+                elif main_input == 2:
+                    append_balance(result)
+                elif main_input == 3:
+                    cash_out_func(result)
+                elif main_input == 4:
+                    trans_func(result)
+                elif main_input == 5:
+                    print('Thank you! Good luck :)')
 
 
+            except MyTypeError as Mte:
+                print(f'Enter a {Mte.text} in the range from 1 to 4, example(3)')
+            except:
+                print(f"You must choose a number. Please enter from 1 to 4, example(3)")
+    else:
+        print("Thank you! Good luck :)")
 
-main_func()
+result = check_usernames()
+main_func(result)
