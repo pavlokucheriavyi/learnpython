@@ -8,8 +8,7 @@ class MyTypeError(Exception):
     def __init__(self, text):
         self.text = text
 
-with open('username_transactions.json', 'r+') as file_3:
-    data_trans = json.load(file_3)
+
 
 with open('usernames.json', 'r+') as file_1:
     data_usernames = json.load(file_1)
@@ -31,10 +30,11 @@ def check_usernames():
             print(f"Wrong login or password. Enter again, you have {i} attempt left! ")
 
 
-with open('usernames_balance.json', 'r+') as file_2:
-    data_balance = json.load(file_2)
+
 
 def check_balance(user):
+    with open(f'{user}_balance_data.json', 'r+') as my_file:
+        data_balance = json.load(my_file)
     flag = True
     while flag == True:
         try:
@@ -57,6 +57,11 @@ def check_balance(user):
 
 
 def append_balance(user):
+    with open(f'{user}_balance_data.json', 'r+') as my_file1:
+        data_balance = json.load(my_file1)
+    with open(f'{user}_transactions_data.json', 'r+') as my_file2:
+        data_trans = json.load(my_file2)
+
     flag = True
     while flag == True:
         try:
@@ -64,12 +69,12 @@ def append_balance(user):
             old_value = data_balance[user]
             new_value = old_value + summ
             data_balance[user] = new_value
-            with open('usernames_balance.json', 'w') as f:
+            with open(f'{user}_balance_data.json', 'w') as f:
                 json.dump(data_balance, f, indent = 2)
 
             append_trans = f'The client {user} has replenished the sum of money of ${summ}. The rest of money - {new_value}'
             data_trans[user].append(append_trans)
-            with open('username_transactions.json', 'w') as big:
+            with open(f'{user}_transactions_data.json', 'w') as big:
                 json.dump(data_trans, big, indent = 2)
 
             result = f"Your account is funded by ${summ}, the rest of money is {new_value}$"
@@ -97,6 +102,10 @@ def append_balance(user):
             print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
 
 def cash_out_func(user):
+    with open(f'{user}_balance_data.json', 'r+') as my_file1:
+        data_balance = json.load(my_file1)
+    with open(f'{user}_transactions_data.json', 'r+') as my_file2:
+        data_trans = json.load(my_file2)
     flag = True
     while flag == True:
         for i in range(6):
@@ -112,12 +121,12 @@ def cash_out_func(user):
                     old_value = data_balance[user]
                     new_value = old_value - summ
                     data_balance[user] = new_value
-                    with open('usernames_balance.json', 'w') as f:
+                    with open(f'{user}_balance_data.json', 'w') as f:
                         json.dump(data_balance, f, indent = 2)
 
                     append_trans = f'The client {user} withdrew ${summ} from the account. The rest of money - {new_value}'
                     data_trans[user].append(append_trans)
-                    with open('username_transactions.json', 'w') as big:
+                    with open(f'{user}_transactions_data.json', 'w') as big:
                         json.dump(data_trans, big, indent = 2)
 
                     result = f"${new_value} left in your account"
@@ -161,6 +170,8 @@ def cash_out_func(user):
                         print(f"Please enter {Mte.text} or N ")
 
 def trans_func(user):
+    with open(f'{user}_transactions_data.json', 'r+') as my_file:
+        data_trans = json.load(my_file)
     flag = True
     while flag == True:
         try:
@@ -184,6 +195,8 @@ def trans_func(user):
 
 
 def main_func(result):
+    with open(f'{result}_balance_data.json', 'r+') as my_file:
+        data_balance = json.load(my_file)
     if result in data_balance:
         print('Main menu'.center(30, ' '))
         print('1. Check your balance')
