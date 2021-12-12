@@ -506,5 +506,5 @@ def ink_transactions(result):
 result = check_usernames()
 if result in data_usernames['users']:
     main_func(result)
-else:
+elif result in data_usernames['admins']:
     ink_main_func(result)
