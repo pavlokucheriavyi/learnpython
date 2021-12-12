@@ -25,6 +25,7 @@ def get_money_func(num):
     with open('money_data.json', 'r+') as my_file:
         data_money = json.load(my_file)
 
+
     result_data = dict()
 
     for s1, s2 in data_money.items():
@@ -37,9 +38,17 @@ def get_money_func(num):
 
     for k, v in result_data.items():
         if (num >= k and num % k >= min_dict) or num % k == 0:
+            if result_data[k] == 0:
+                continue
 
             if num == 0:
                 break
+            if num // k > result_data[k]:
+                some = k * result_data[k]
+                num = num - some
+                my_dict[k] = result_data[k]
+                result_data[k] = result_data[k] - result_data[k]
+                continue
             my_dict[k] = num // k
             result_data[k] = result_data[k] - my_dict[k]
             num = num % k
@@ -52,6 +61,7 @@ def get_money_func(num):
     if sum1 == first_var:
         flag = 1
 
+
     # другий варіант
     sum2 = 0
     for key, value in my_dict.items():
@@ -59,11 +69,6 @@ def get_money_func(num):
     if sum2 != first_var:
         flag = 2
 
-    # третій варіант
-    for some in result_data.values():
-        if some < 0:
-            flag = 3
-            break
 
     return flag, my_dict, result_data
 
@@ -225,10 +230,7 @@ def cash_out_func(user):
                         print(f'Error: Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu!')
 
                 elif result_get[0] == 2:
-                    print("Error: We can't give you that amount, we don't have the banknotes you need!")
-
-                elif result_get[0] == 3:
-                    print("Error: Sorry we ran out of banknotes, try another amount!")
+                    print("Error: We can't give you that amount, we don't have the banknotes you need, try another amount!")
 
 
         except ExceptionValue as ExV:
