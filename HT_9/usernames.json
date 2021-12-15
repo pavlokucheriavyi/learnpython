@@ -1,0 +1,5 @@
+{
+    "users" : {"Pasha" : "qwerty123",
+    "Natasha" : "kleop"},
+    "admins" : {"admin1" : "admin123456"}
+}
