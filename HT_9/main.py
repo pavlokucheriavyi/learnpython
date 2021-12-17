@@ -159,7 +159,14 @@ def get_money_func(num):
         result_data[int(s1)] = s2
 
     my_dict = dict()
-    min_dict = min(result_data.keys())
+    new_dict = dict()
+
+    for k, v in result_data.items():
+        if v == 0:
+            continue
+        new_dict[k] = v
+
+    min_dict = min(new_dict.keys())
 
     flag = 0
 
