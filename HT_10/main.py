@@ -518,7 +518,7 @@ def main_func(result):
         try:
             main_input = int(input("Select the desired operation. Enter from 1 to 5: "))
             fast_list = [x for x in range(1, 6)]
-            if main_input < 1 or main_input > 5:
+            if main_input < 1 or main_input > 6:
                 raise MyTypeError('number')
 
             flag = False
@@ -555,7 +555,7 @@ def ink_main_func(result):
         try:
             ink_main_input = int(input("Select the desired operation. Enter from 1 to 5: "))
             ink_fast_list = [x for x in range(1, 6)]
-            if ink_main_input < 1 or ink_main_input > 5:
+            if ink_main_input < 1 or ink_main_input > 6:
                 raise MyTypeError('number')
             ink_flag = False
 
