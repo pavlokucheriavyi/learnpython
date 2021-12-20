@@ -6,8 +6,9 @@ def check_cur(main_input):
     flag = True
     while flag == True:
         current_datetime = datetime.now()
-
-        m = str(current_datetime.day) + '.' + str(current_datetime.month) + '.' + str(current_datetime.year)
+        date_format = '%d.%m.%Y'
+        m = current_datetime.strftime(date_format)
+        
         URL = 'https://api.privatbank.ua/p24api/exchange_rates?json&date=' + m
         r = requests.get(URL)
         str_json = r.text
