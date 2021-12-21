@@ -33,26 +33,30 @@ while flag == True:
 def check_date():
     flag = True
     while flag == True:
-        d = input('Enter day (example: 4, 29): ')
-        m = input('Enter month (example: 2, 11): ')
-        y = input('Enter year (example: 2021): ')
+        try:
+            date = input('Enter date "day"."monat"."year", (example: 2.4.2021): ')
 
-        date = d + '.' + m + '.' + y
-        date_format = "%d.%m.%Y"
 
-        start = datetime.strptime(date, date_format)
-        now = datetime.now()
 
-        if start > now:
-            print('Your date in the future, please enter again')
-        else:
-            return int(y), int(m), int(d)
+            date_format = "%d.%m.%Y"
+
+            start = datetime.strptime(date, date_format)
+            now = datetime.now()
+
+            list1 = date.split('.')
+
+            if start > now:
+                print('Your date in the future, please enter again')
+            else:
+                return int(list1[0]), int(list1[1]), int(list1[2])
+        except ValueError:
+            print('You entered the wrong date, perhaps this day is not on the calendar. Please repeat again. Example(12.11.2021)')
 
 
 something = check_date()
-year = something[0]
+year = something[2]
 month = something[1]
-day = something[2]
+day = something[0]
 
 
 

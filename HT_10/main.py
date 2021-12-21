@@ -62,6 +62,7 @@ result_dict = dict()
 for i in same_list:
     result_dict[i[0]] = i[1]
 
+
 #СТВОРЮЄМО ТАБЛИЦЮ З БАЛАНСОМ КЛІЄНТІВ
 
 cur.execute('''CREATE TABLE IF NOT EXISTS users_balance
@@ -152,6 +153,22 @@ result_trans_list = []
 
 
 def get_money_func(num):
+    same_list = []
+
+    with con:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM inkasator_check")
+        rows = cur.fetchall()
+
+        for row in rows:
+            same_list.append(row)
+
+    result_dict = dict()
+
+    for i in same_list:
+        result_dict[i[0]] = i[1]
+
+
     first_var = num
 
     result_data = dict()
@@ -168,7 +185,7 @@ def get_money_func(num):
         new_dict[k] = v
 
     min_dict = min(new_dict.keys())
-
+    
     flag = 0
 
     for k, v in result_data.items():
@@ -471,8 +488,8 @@ def cash_out_func(user):
 
         except ExceptionValue as ExV:
             print(f"Error: {ExV.text} must enter 'Y' or 'N'. ")
-        except:
-            print(f'Error: You must enter a positive number!')
+        #except:
+        #    print(f'Error: You must enter a positive number!')
 
 
 def trans_func(user):
@@ -538,8 +555,8 @@ def main_func(result):
 
         except MyTypeError as Mte:
             print(f'Error: Enter a {Mte.text} in the range from 1 to 5, example(3)!')
-        except:
-           print(f"Error: You must choose a number. Please enter from 1 to 5, example(3)!")
+        #except:
+         #  print(f"Error: You must choose a number. Please enter from 1 to 5, example(3)!")
 
 
 def ink_main_func(result):
