@@ -414,8 +414,4 @@ def photo(id_of_user):
 
 
 
-<<<<<<< HEAD
 main_func()
-=======
-main_func()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
