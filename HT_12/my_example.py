@@ -10,15 +10,13 @@ start_time = datetime.now()
 result = []
 
 def about_author(author_string):
-
     URL = 'https://quotes.toscrape.com' + author_string
     r = requests.get(URL)
     soup = bs(r.text, 'lxml')
+    return_list = []
 
     my_var_first = soup.select_one('span.author-born-date').get_text() + ' ' + soup.select_one('span.author-born-location').get_text()
     my_var_second = soup.select_one('.author-description').get_text().strip()
-
-    return_list = []
 
     return_list.append(my_var_first)
     return_list.append(my_var_second)
@@ -51,7 +49,6 @@ def main(link=''):
 
 
 def write_csv(main_list):
-
     with open('result.csv', 'w') as file:
         file_writer = csv.writer(file, delimiter='*')
         file_writer.writerow(['Text:', 'Author:', 'Born:', 'Description:'])
@@ -66,11 +63,8 @@ def get_links():
 
     flag = True
     while flag == True:
-
         URL = 'https://quotes.toscrape.com'
-
         r = requests.get(URL + main_link)
-
         soup = bs(r.text, 'lxml')
 
         check_link = soup.select_one('li.next a[href]')
@@ -81,20 +75,17 @@ def get_links():
             return main_list
 
         new_link = soup.select_one('li.next a[href]').get('href')
-
         main_link = new_link
 
 links_list = get_links()
-
 start_list = main()
+
 
 for i in links_list:
     if i == None:
         break
     ex_list = main(i.get('href'))
     start_list.extend(ex_list)
-
-
 
 
 write_csv(start_list)
