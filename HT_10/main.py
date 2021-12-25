@@ -7,45 +7,28 @@ class ExceptionValue(Exception):
     def __init__(self, text):
         self.text = text
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 class MyTypeError(Exception):
     def __init__(self, text):
         self.text = text
 
-<<<<<<< HEAD
 
 class StripingTypeError(Exception):
     def __init__(self, text):
         self.text = text
 
 
-=======
-class StripingTypeError(Exception):
-    def __init__(self, text):
-        self.text = text
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 class CheckTypeError(Exception):
     def __init__(self, text):
         self.text = text
 
 
-<<<<<<< HEAD
 # РОБОТА З БД
-=======
-#РОБОТА З БД
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 con = sqlite3.connect('maindata2.db')
 cur = con.cursor()
 
-<<<<<<< HEAD
 # СТВОРЮЄМО ТАБЛИЦЮ З КУПЮРАМИ
-=======
-#СТВОРЮЄМО ТАБЛИЦЮ З КУПЮРАМИ
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 cur.execute('''CREATE TABLE IF NOT EXISTS inkasator_check
                (banknotes text, quantity integer)''')
@@ -60,13 +43,8 @@ banknotes = [
     ('20', 100),
     ('10', 100)
 ]
-<<<<<<< HEAD
 # cur.execute("UPDATE balance SET balance = 800 WHERE balance = 500")
 # cur.execute('DELETE FROM inkasator_check;',);
-=======
-#cur.execute("UPDATE balance SET balance = 800 WHERE balance = 500")
-#cur.execute('DELETE FROM inkasator_check;',);
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 for user in banknotes:
     exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''', (user[0],)).fetchone()
@@ -88,12 +66,7 @@ result_dict = dict()
 for i in same_list:
     result_dict[i[0]] = i[1]
 
-<<<<<<< HEAD
 # СТВОРЮЄМО ТАБЛИЦЮ З БАЛАНСОМ КЛІЄНТІВ
-=======
-
-#СТВОРЮЄМО ТАБЛИЦЮ З БАЛАНСОМ КЛІЄНТІВ
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 cur.execute('''CREATE TABLE IF NOT EXISTS users_balance
                (username text, balance integer)''')
@@ -123,11 +96,7 @@ result_dict_balance = dict()
 for i in same_list_balance:
     result_dict_balance[i[0]] = i[1]
 
-<<<<<<< HEAD
 # СТВОРЮЄМО ТАБЛИЦЮ З ЛОГІНАМИ ТА ПАРОЛЯМИ КЛІЄНТІВ
-=======
-#СТВОРЮЄМО ТАБЛИЦЮ З ЛОГІНАМИ ТА ПАРОЛЯМИ КЛІЄНТІВ
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 cur.execute('''CREATE TABLE IF NOT EXISTS users
                (username text, password text, is_inkasator bit DEFAULT false)''')
@@ -140,12 +109,8 @@ users = [
 ]
 
 for user in users:
-<<<<<<< HEAD
     exists = cur.execute('''SELECT username, password, is_inkasator FROM users WHERE username=?''',
                          (user[0],)).fetchone()
-=======
-    exists = cur.execute('''SELECT username, password, is_inkasator FROM users WHERE username=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     if not exists:
         cur.execute('''INSERT INTO users VALUES (?, ?, ?) ''', user)
 
@@ -159,27 +124,16 @@ with con:
     for row in rows:
         same_list_users.append(row)
 
-<<<<<<< HEAD
 # СТВОРЮЄМО ТАБЛИЦЮ З ТРАНЗАКЦІЯМИ
-=======
-
-#СТВОРЮЄМО ТАБЛИЦЮ З ТРАНЗАКЦІЯМИ
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 cur.execute('''CREATE TABLE IF NOT EXISTS transactions
                (username text, trans cursor)''')
 
 list_trans = [
     ('Pasha', "The client Pasha has replenished the sum of money of $500. The rest of money - 3500\n"
-<<<<<<< HEAD
               "The client Pasha withdrew $300 from the account. The rest of money - 3200\n"),
     ('Natasha', "The client Natasha has replenished the sum of money of $4000. The rest of money - 9000\n"
                 "The client Natasha withdrew $500 from the account. The rest of money - 8500\n")
-=======
-"The client Pasha withdrew $300 from the account. The rest of money - 3200\n"),
-    ('Natasha', "The client Natasha has replenished the sum of money of $4000. The rest of money - 9000\n"
-"The client Natasha withdrew $500 from the account. The rest of money - 8500\n")
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 ]
 
 for user in list_trans:
@@ -217,10 +171,6 @@ def get_money_func(num):
     for i in same_list:
         result_dict[i[0]] = i[1]
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     first_var = num
 
     result_data = dict()
@@ -237,11 +187,7 @@ def get_money_func(num):
         new_dict[k] = v
 
     min_dict = min(new_dict.keys())
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     flag = 0
 
     for k, v in result_data.items():
@@ -261,10 +207,6 @@ def get_money_func(num):
             result_data[k] = result_data[k] - my_dict[k]
             num = num % k
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     # перший варіант
     sum1 = 0
     for k, v in my_dict.items():
@@ -272,10 +214,6 @@ def get_money_func(num):
     if sum1 == first_var:
         flag = 1
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     # другий варіант
     sum2 = 0
     for key, value in my_dict.items():
@@ -283,28 +221,15 @@ def get_money_func(num):
     if sum2 != first_var:
         flag = 2
 
-<<<<<<< HEAD
     return flag, my_dict, result_data
 
 
-=======
-
-    return flag, my_dict, result_data
-
-
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 def check_kurs():
     r = requests.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
     str_json = r.text
 
     data = json.loads(str_json)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     for i in data:
         for k, v in i.items():
             if k == 'ccy':
@@ -334,10 +259,7 @@ def check_kurs():
         except:
             print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 def check_usernames():
     for i in range(2, -1, -1):
         my_input1 = input("Enter your login: ")
@@ -375,11 +297,6 @@ def check_balance(user):
             print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 def append_balance(user):
     something = user
 
@@ -394,37 +311,21 @@ def append_balance(user):
             new_value = old_value + int(summ)
             result_dict_balance[user] = new_value
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             user_balance_result_list = []
             for k, v in result_dict_balance.items():
                 t = k, v
                 user_balance_result_list.append(t)
 
-<<<<<<< HEAD
             cur.execute('DELETE FROM users_balance;', );
 
             for user in user_balance_result_list:
                 exists = cur.execute('''SELECT username, balance FROM users_balance WHERE username=?''',
                                      (user[0],)).fetchone()
-=======
-            cur.execute('DELETE FROM users_balance;',);
-
-            for user in user_balance_result_list:
-                exists = cur.execute('''SELECT username, balance FROM users_balance WHERE username=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 if not exists:
                     cur.execute('''INSERT INTO users_balance VALUES (?, ?) ''', user)
 
             con.commit()
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             append_trans = f'The client {something} has replenished the sum of money of ${int(summ)}. The rest of money - {new_value}\n'
 
             for i in same_dict_trans:
@@ -434,18 +335,11 @@ def append_balance(user):
             for j in same_dict_trans:
                 result_trans_list.append(tuple(j))
 
-<<<<<<< HEAD
             cur.execute('DELETE FROM transactions;', );
 
             for user in same_dict_trans:
                 exists = cur.execute('''SELECT username, trans FROM transactions WHERE username=?''',
                                      (user[0],)).fetchone()
-=======
-            cur.execute('DELETE FROM transactions;',);
-
-            for user in same_dict_trans:
-                exists = cur.execute('''SELECT username, trans FROM transactions WHERE username=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 if not exists:
                     cur.execute('''INSERT INTO transactions VALUES (?, ?) ''', user)
 
@@ -467,12 +361,8 @@ def append_balance(user):
                     elif back < 1 or back > 2:
                         raise MyTypeError('number')
                 except MyTypeError as Mte:
-<<<<<<< HEAD
                     print(
                         f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
-=======
-                    print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 except:
                     print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
         except MyTypeError as Mte:
@@ -491,20 +381,12 @@ def cash_out_func(user):
             for k, v in result_dict.items():
                 if result_dict[k] == 0:
                     continue
-<<<<<<< HEAD
                 print(k, end=' | ')
             old_money = result_dict_balance[user]
             summ = input("\nHow much money do you want to withdraw from your account? Example(300): ")
             if int(summ) > old_money:
                 print(
                     f'Error: You cannot get - {int(summ)}. The amount you want to withdraw is higher than your balance! ')
-=======
-                print(k, end = ' | ')
-            old_money = result_dict_balance[user]
-            summ = input("\nHow much money do you want to withdraw from your account? Example(300): ")
-            if int(summ) > old_money:
-                print(f'Error: You cannot get - {int(summ)}. The amount you want to withdraw is higher than your balance! ')
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 some = input("Please press 'Y' to check balance of money, 'N' if not: ")
                 if some == 'Y':
                     print("Your balance is: ", old_money, "$")
@@ -529,11 +411,7 @@ def cash_out_func(user):
                     new_value = old_money - int(summ)
                     result_dict_balance[user] = new_value
 
-<<<<<<< HEAD
                     cur.execute('DELETE FROM inkasator_check;', );
-=======
-                    cur.execute('DELETE FROM inkasator_check;',);
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
                     result_list = []
                     for k, v in append_data.items():
@@ -541,21 +419,13 @@ def cash_out_func(user):
                         result_list.append(t)
 
                     for user in result_list:
-<<<<<<< HEAD
                         exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''',
                                              (user[0],)).fetchone()
-=======
-                        exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                         if not exists:
                             cur.execute('''INSERT INTO inkasator_check VALUES (?, ?) ''', user)
 
                     con.commit()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                     append_trans = f'The client {something} withdrew ${int(summ)} from the account. The rest of money - {new_value}\n'
                     for i in same_dict_trans:
                         if i[0] == something:
@@ -564,52 +434,30 @@ def cash_out_func(user):
                     for j in same_dict_trans:
                         result_trans_list.append(tuple(j))
 
-<<<<<<< HEAD
                     cur.execute('DELETE FROM transactions;', );
 
                     for user in same_dict_trans:
                         exists = cur.execute('''SELECT username, trans FROM transactions WHERE username=?''',
                                              (user[0],)).fetchone()
-=======
-                    cur.execute('DELETE FROM transactions;',);
-
-                    for user in same_dict_trans:
-                        exists = cur.execute('''SELECT username, trans FROM transactions WHERE username=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                         if not exists:
                             cur.execute('''INSERT INTO transactions VALUES (?, ?) ''', user)
 
                     con.commit()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                     result = f"${new_value} left in your account"
                     print(' ')
                     print(result)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                     user_balance_result_list = []
                     for k, v in result_dict_balance.items():
                         t = k, v
                         user_balance_result_list.append(t)
 
-<<<<<<< HEAD
                     cur.execute('DELETE FROM users_balance;', );
 
                     for user in user_balance_result_list:
                         exists = cur.execute('''SELECT username, balance FROM users_balance WHERE username=?''',
                                              (user[0],)).fetchone()
-=======
-                    cur.execute('DELETE FROM users_balance;',);
-
-                    for user in user_balance_result_list:
-                        exists = cur.execute('''SELECT username, balance FROM users_balance WHERE username=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                         if not exists:
                             cur.execute('''INSERT INTO users_balance VALUES (?, ?) ''', user)
 
@@ -617,12 +465,8 @@ def cash_out_func(user):
                     flag_main = True
                     while flag_main == True:
                         try:
-<<<<<<< HEAD
                             back = int(
                                 input("Press '1' if you want to exit, '2' if you want to return to the main menu: "))
-=======
-                            back = int(input("Press '1' if you want to exit, '2' if you want to return to the main menu: "))
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                             if back == 1:
                                 flag_main = False
                                 return
@@ -632,7 +476,6 @@ def cash_out_func(user):
                             elif back < 1 or back > 2:
                                 raise MyTypeError('number')
                         except MyTypeError as Mte:
-<<<<<<< HEAD
                             print(
                                 f'Error: Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu!')
                         except:
@@ -646,18 +489,6 @@ def cash_out_func(user):
         except ExceptionValue as ExV:
             print(f"Error: {ExV.text} must enter 'Y' or 'N'. ")
         # except:
-=======
-                            print(f'Error: Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu!')
-                        except:
-                            print('Error: Enter a number in the range from 1 to 2, example(2) if you want return to the main menu!')
-
-                elif result_get[0] == 2:
-                    print("Error: We can't give you that amount, we don't have the banknotes you need, try another amount!")
-
-        except ExceptionValue as ExV:
-            print(f"Error: {ExV.text} must enter 'Y' or 'N'. ")
-        #except:
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
         #    print(f'Error: You must enter a positive number!')
 
 
@@ -675,10 +506,6 @@ def trans_func(user):
                     if i[0] == user:
                         print(i[1])
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             back = int(input("Press '1' if you want to exit, '2' if you want return to the main menu: "))
             if back == 1:
                 print('Thank you! Good luck :)')
@@ -727,13 +554,8 @@ def main_func(result):
 
         except MyTypeError as Mte:
             print(f'Error: Enter a {Mte.text} in the range from 1 to 5, example(3)!')
-<<<<<<< HEAD
-        # except:
-        #  print(f"Error: You must choose a number. Please enter from 1 to 5, example(3)!")
-=======
-        #except:
-         #  print(f"Error: You must choose a number. Please enter from 1 to 5, example(3)!")
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
+        except:
+            print(f"Error: You must choose a number. Please enter from 1 to 5, example(3)!")
 
 
 def ink_main_func(result):
@@ -785,13 +607,8 @@ def ink_check_balance():
             if x < 1 or x > 2:
                 raise MyTypeError('number')
         except MyTypeError as Mte:
-<<<<<<< HEAD
             print(
                 f'Error: Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu!')
-=======
-            print(f'Error: Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu!')
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
 
 def ink_cashin_money(result):
@@ -807,37 +624,21 @@ def ink_cashin_money(result):
             result_quantity = first_quantity + quantity
             result_dict[banknote] = result_quantity
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             result_list = []
             for k, v in result_dict.items():
                 t = k, v
                 result_list.append(t)
 
-<<<<<<< HEAD
             cur.execute('DELETE FROM inkasator_check;', );
 
             for user in result_list:
                 exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''',
                                      (user[0],)).fetchone()
-=======
-            cur.execute('DELETE FROM inkasator_check;',);
-
-            for user in result_list:
-                exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 if not exists:
                     cur.execute('''INSERT INTO inkasator_check VALUES (?, ?) ''', user)
 
             con.commit()
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             x = int(input("If you wish to continue press '1', if to exit to the main menu press '2': "))
             flag2 = True
             while flag2 == True:
@@ -848,19 +649,11 @@ def ink_cashin_money(result):
                         ink_main_func(something)
                     flag2 = False
 
-<<<<<<< HEAD
                     if x < 1 or x > 2:
                         raise MyTypeError('number')
                 except MyTypeError as Mte:
                     print(
                         f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
-=======
-
-                    if x < 1 or x > 2:
-                        raise MyTypeError('number')
-                except MyTypeError as Mte:
-                    print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 
             flag = False
 
@@ -870,29 +663,17 @@ def ink_cashin_money(result):
             print(f'Error: Enter how many banknotes you wish to deposit, example(50)')
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 def ink_cashout_money(result):
     something = result
     flag = True
     while flag == True:
         try:
-<<<<<<< HEAD
             banknote = input(
                 "Enter one of these notes you wish to withdraw: 1000, 500, 200, 100, 50, 20, 10. (example: 500): ")
 
             if (banknote in result_dict) == False:
                 some = input(
                     "Error: Now we don't have that banknote at our ATM. Please press 'Y' to check balance of money, 'N' if not: ")
-=======
-            banknote = input("Enter one of these notes you wish to withdraw: 1000, 500, 200, 100, 50, 20, 10. (example: 500): ")
-
-            if (banknote in result_dict) == False:
-                some = input("Error: Now we don't have that banknote at our ATM. Please press 'Y' to check balance of money, 'N' if not: ")
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 if some == 'Y':
 
                     for k, v in result_dict.items():
@@ -903,20 +684,12 @@ def ink_cashout_money(result):
                 else:
                     continue
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             quantity = int(input("Enter a quatity of banknotes (example: 120): "))
 
             first_quantity = result_dict[banknote]
             if quantity > first_quantity:
-<<<<<<< HEAD
                 some = input(
                     "Error: You cannot withdraw more than your balance. Please press 'Y' to check balance of money, 'N' if not: ")
-=======
-                some = input("Error: You cannot withdraw more than your balance. Please press 'Y' to check balance of money, 'N' if not: ")
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 if some == 'Y':
                     for k, v in result_dict.items():
                         print(k, '-', v, 'units.')
@@ -937,18 +710,11 @@ def ink_cashout_money(result):
                 t = k, v
                 result_list.append(t)
 
-<<<<<<< HEAD
             cur.execute('DELETE FROM inkasator_check;', );
 
             for user in result_list:
                 exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''',
                                      (user[0],)).fetchone()
-=======
-            cur.execute('DELETE FROM inkasator_check;',);
-
-            for user in result_list:
-                exists = cur.execute('''SELECT banknotes, quantity FROM inkasator_check WHERE banknotes=?''', (user[0],)).fetchone()
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 if not exists:
                     cur.execute('''INSERT INTO inkasator_check VALUES (?, ?) ''', user)
 
@@ -967,12 +733,8 @@ def ink_cashout_money(result):
                     flag2 = False
 
                 except MyTypeError as Mte:
-<<<<<<< HEAD
                     print(
                         f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
-=======
-                    print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
                 except ValueError:
                     print(f'Enter a number in the range from 1 to 2, example(2) if you want return to the main menu')
                 except StripingTypeError as Ste:
@@ -988,20 +750,12 @@ def ink_cashout_money(result):
             print(f'Error: Enter how many banknotes you wish to deposit, example(50)')
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 def ink_transactions(result):
     for i in range(len(same_list_transactions)):
         print(same_list_transactions[i][0])
         print(same_list_transactions[i][1])
         print('---------------------------------------------------------------------------')
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     flag2 = True
     while flag2 == True:
         try:
@@ -1011,11 +765,6 @@ def ink_transactions(result):
             if x == 2:
                 ink_main_func(result)
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
             if x < 1 or x > 2:
                 raise MyTypeError('number')
             flag2 = False
@@ -1025,20 +774,10 @@ def ink_transactions(result):
             print(f'Enter a number in the range from 1 to 2, example(2) if you want return to the main menu')
 
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 result = check_usernames()
 
 for i in same_list_users:
     if result == i[0] and i[2] == 0:
         main_func(result)
     elif result == i[0] and i[2] == 1:
-<<<<<<< HEAD
         ink_main_func(result)
-=======
-        ink_main_func(result)
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7

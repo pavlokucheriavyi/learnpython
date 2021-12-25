@@ -2,21 +2,14 @@ import requests
 import json
 from datetime import datetime
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 def check_cur(main_input):
     flag = True
     while flag == True:
         current_datetime = datetime.now()
         date_format = '%d.%m.%Y'
         m = current_datetime.strftime(date_format)
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
         URL = 'https://api.privatbank.ua/p24api/exchange_rates?json&date=' + m
         r = requests.get(URL)
         str_json = r.text
@@ -34,10 +27,7 @@ def check_cur(main_input):
         else:
             return True
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 flag = True
 while flag == True:
     my_input1 = input('Enter first currency (example EUR, USD, RUB, GBP, PLN): ')
@@ -52,18 +42,10 @@ while flag == True:
         flag = False
     summ_for_sale = float(input('Enter summ of money (example: 1340): '))
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 current_datetime = datetime.now()
 date_format = '%d.%m.%Y'
 m = current_datetime.strftime(date_format)
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
 URL = 'https://api.privatbank.ua/p24api/exchange_rates?json&date=' + m
 r = requests.get(URL)
 str_json = r.text
@@ -78,10 +60,7 @@ if len(data) == 0:
     str_json = r.text
     data = json.loads(str_json)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     def konv(cur1, cur2, summ):
         result_summ = 0
 
@@ -110,10 +89,7 @@ if len(data) == 0:
 
         return result_summ
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     res = konv(my_input1, my_input2, summ_for_sale)
     print('%.2f' % res, my_input2)
 
@@ -146,11 +122,6 @@ else:
 
         return result_summ
 
-<<<<<<< HEAD
 
     res = konv(my_input1, my_input2, summ_for_sale)
     print('%.2f' % res, my_input2)
-=======
-    res = konv(my_input1, my_input2, summ_for_sale)
-    print('%.2f' % res, my_input2)
->>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
