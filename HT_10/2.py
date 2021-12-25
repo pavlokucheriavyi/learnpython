@@ -8,8 +8,12 @@ flag = True
 while flag == True:
     cur = input('Enter Currence (example: EUR, USD, RUB, GBP, PLN): ')
 
+<<<<<<< HEAD
     now = datetime.now()
     current_datetime = now
+=======
+    current_datetime = datetime.now()
+>>>>>>> 7821665e52f5cb62f85bd5153fbcad3f37da43f7
     date_format = '%d.%m.%Y'
     m = current_datetime.strftime(date_format)
 
