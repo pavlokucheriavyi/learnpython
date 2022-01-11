@@ -2,28 +2,72 @@ import requests
 import create_tables as ct
 import json
 
-
 class ExceptionValue(Exception):
     def __init__(self, text):
         self.text = text
-
 
 class MyTypeError(Exception):
     def __init__(self, text):
         self.text = text
 
-
 class StripingTypeError(Exception):
     def __init__(self, text):
         self.text = text
-
 
 class CheckTypeError(Exception):
     def __init__(self, text):
         self.text = text
 
-class SimpleUser(object):
-    def main_func(self, result):
+
+class ExchangeRates(object):
+    def check_kurs(self):
+        r = requests.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
+        str_json = r.text
+
+        data = json.loads(str_json)
+
+        for i in data:
+            for k, v in i.items():
+                if k == 'ccy':
+                    print(v + ':')
+                elif k == 'base_ccy':
+                    continue
+                elif k == 'buy':
+                    print(k + ':', '%.2f' % float(v), 'UAH')
+                else:
+                    print(k + ':', '%.2f' % float(v), 'UAH')
+            print('--------------------------------------')
+        flag = True
+        while flag == True:
+            try:
+                back = int(input("Press '1' if you want to exit, '2' if you want to return to the main menu: "))
+                if back == 1:
+                    print('Thank you! Good luck :)')
+                    flag = False
+                elif back == 2:
+                    flag = False
+                    if isinstance(self, SimpleUser):
+                        new_obj = SimpleUser(self.login)
+                        return new_obj
+                    elif isinstance(self, MainAdmin):
+                        new_obj_admin = MainAdmin(self.login)
+                        return new_obj_admin
+
+                elif back < 1 or back > 2:
+                    raise MyTypeError('number')
+
+            except MyTypeError as Mte:
+                print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
+            except:
+                print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
+
+class SimpleUser(ExchangeRates):
+    def __init__(self, login):
+        self.login = login
+
+        self.__main_func(self.login)
+
+    def __main_func(self, result):
         print('Main menu'.center(30, ' '))
         print('1. Check your balance')
         print('2. Cash in')
@@ -48,7 +92,7 @@ class SimpleUser(object):
                 elif main_input == 4:
                     self.__trans_func(result)
                 elif main_input == 5:
-                    self.__check_kurs()
+                    self.check_kurs()
                 elif main_input == 6:
                     print('Thank you! Good luck :)')
 
@@ -127,42 +171,6 @@ class SimpleUser(object):
         return flag, my_dict, result_data
 
 
-    def __check_kurs(self):
-        r = requests.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
-        str_json = r.text
-
-        data = json.loads(str_json)
-
-        for i in data:
-            for k, v in i.items():
-                if k == 'ccy':
-                    print(v + ':')
-                elif k == 'base_ccy':
-                    continue
-                elif k == 'buy':
-                    print(k + ':', '%.2f' % float(v), 'UAH')
-                else:
-                    print(k + ':', '%.2f' % float(v), 'UAH')
-            print('--------------------------------------')
-        flag = True
-        while flag == True:
-            try:
-                back = int(input("Press '1' if you want to exit, '2' if you want to return to the main menu: "))
-                if back == 1:
-                    print('Thank you! Good luck :)')
-                    flag = False
-                elif back == 2:
-                    flag = False
-                    return self.main_func(ct.user)
-                elif back < 1 or back > 2:
-                    raise MyTypeError('number')
-
-            except MyTypeError as Mte:
-                print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
-            except:
-                print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
-
-
     def __check_balance(self, user):
         flag = True
         while flag == True:
@@ -175,7 +183,7 @@ class SimpleUser(object):
                     flag = False
                 elif back == 2:
                     flag = False
-                    return self.main_func(user)
+                    return self.__main_func(user)
                 elif back < 1 or back > 2:
                     raise MyTypeError('number')
 
@@ -245,7 +253,7 @@ class SimpleUser(object):
                             flag = False
                         elif back == 2:
                             flag = False
-                            return self.main_func(something)
+                            return self.__main_func(something)
                         elif back < 1 or back > 2:
                             raise MyTypeError('number')
                     except MyTypeError as Mte:
@@ -359,7 +367,7 @@ class SimpleUser(object):
                                     return
                                 elif back == 2:
                                     flag_main = False
-                                    return self.main_func(something)
+                                    return self.__main_func(something)
                                 elif back < 1 or back > 2:
                                     raise MyTypeError('number')
                             except MyTypeError as Mte:
@@ -399,7 +407,7 @@ class SimpleUser(object):
                     flag = False
                 elif back == 2:
                     flag = False
-                    return self.main_func(user)
+                    return self.__main_func(user)
                 elif back < 1 or back > 2:
                     raise MyTypeError('number')
             except MyTypeError as Mte:
@@ -407,9 +415,13 @@ class SimpleUser(object):
             except:
                 print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
 
-class MainAdmin(object):
+class MainAdmin(ExchangeRates):
+    def __init__(self, login):
+        self.login = login
 
-    def ink_main_func(self, result):
+        self.__ink_main_func(self.login)
+
+    def __ink_main_func(self, result):
         print('Admin menu'.center(30, ' '))
         print('1. Check balance of money')
         print('2. Cash in')
@@ -434,7 +446,7 @@ class MainAdmin(object):
                 elif ink_main_input == 4:
                     self.__ink_transactions(result)
                 elif ink_main_input == 5:
-                    self.__check_kurs()
+                    self.check_kurs()
                 elif ink_main_input == 6:
                     return
 
@@ -451,7 +463,7 @@ class MainAdmin(object):
                 if x == 1:
                     return
                 if x == 2:
-                    self.ink_main_func(result)
+                    self.__ink_main_func(self.login)
                 flag2 = False
                 if x < 1 or x > 2:
                     raise MyTypeError('number')
@@ -495,7 +507,7 @@ class MainAdmin(object):
                         if x == 1:
                             self.__ink_cashin_money(result)
                         if x == 2:
-                            self.ink_main_func(something)
+                            self.__ink_main_func(something)
                         flag2 = False
 
                         if x < 1 or x > 2:
@@ -575,7 +587,7 @@ class MainAdmin(object):
                         if x == 1:
                             self.__ink_cashout_money(result)
                         elif x == 2:
-                            self.ink_main_func(result)
+                            self.__ink_main_func(result)
                         elif x < 1 or x > 2:
                             raise MyTypeError('number')
                         flag2 = False
@@ -611,7 +623,7 @@ class MainAdmin(object):
                 if x == 1:
                     return
                 if x == 2:
-                    self.ink_main_func(result)
+                    self.__ink_main_func(result)
 
                 if x < 1 or x > 2:
                     raise MyTypeError('number')
@@ -621,63 +633,32 @@ class MainAdmin(object):
             except ValueError:
                 print(f'Enter a number in the range from 1 to 2, example(2) if you want return to the main menu')
 
-    def __check_kurs(self):
-        r = requests.get('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5')
-        str_json = r.text
+class SignIn(object):
+    @classmethod
+    def check_usernames(self):
+        for i in range(2, -1, -1):
+            my_input1 = input("Enter your login: ")
+            my_input2 = input("Enter your password: ")
 
-        data = json.loads(str_json)
-
-        for i in data:
-            for k, v in i.items():
-                if k == 'ccy':
-                    print(v + ':')
-                elif k == 'base_ccy':
-                    continue
-                elif k == 'buy':
-                    print(k + ':', '%.2f' % float(v), 'UAH')
-                else:
-                    print(k + ':', '%.2f' % float(v), 'UAH')
-            print('--------------------------------------')
-        flag = True
-        while flag == True:
-            try:
-                back = int(input("Press '1' if you want to exit, '2' if you want to return to the main menu: "))
-                if back == 1:
-                    print('Thank you! Good luck :)')
-                    flag = False
-                elif back == 2:
-                    flag = False
-                    return self.ink_main_func(ct.user)
-                elif back < 1 or back > 2:
-                    raise MyTypeError('number')
-
-            except MyTypeError as Mte:
-                print(f'Enter a {Mte.text} in the range from 1 to 2, example(2) if you want return to the main menu')
-            except:
-                print('You must choose a number. Please enter 1 or 2, example(1) if you want exit')
+            for j in ct.same_list_users:
+                if j[0] == my_input1 and j[1] == my_input2:
+                    return my_input1, j[2]
+            if i == 0:
+                x = "Thank you! Good luck :)"
+                return x
+            else:
+                print(f"Wrong login or password. Enter again, you have {i} attempt left! ")
 
 
-def check_usernames():
-    for i in range(2, -1, -1):
-        my_input1 = input("Enter your login: ")
-        my_input2 = input("Enter your password: ")
+def start_project():
+    main_result = SignIn.check_usernames()
+    for i in ct.same_list_users:
+        if main_result[0] == i[0] and main_result[1] == 0:
+            user_object = SimpleUser(main_result[0])
 
-        for j in ct.same_list_users:
-            if j[0] == my_input1 and j[1] == my_input2:
-                return my_input1
-        if i == 0:
-            print("Thank you! Good luck :)")
+        elif main_result[0] == i[0] and main_result[1] == 1:
+            admin_object = MainAdmin(main_result[0])
 
-        else:
-            print(f"Wrong login or password. Enter again, you have {i} attempt left! ")
+start_project()
 
-result = check_usernames()
-
-for i in ct.same_list_users:
-    if result == i[0] and i[2] == 0:
-        user_object = SimpleUser()
-        user_object.main_func(result)
-    elif result == i[0] and i[2] == 1:
-        admin_object = MainAdmin()
-        admin_object.ink_main_func(result)
 
