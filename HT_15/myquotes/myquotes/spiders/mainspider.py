@@ -81,20 +81,20 @@ class MySpider(scrapy.Spider):
         """
         1) The function that parses a particular news page and initializes a
         dictionary with the necessary data by calling the
-        function 'more_info_dict'. 2) Completes this dictionary with a link
+        function 'more_info_data'. 2) Completes this dictionary with a link
         to the news. 3) Returns, using the yield method, the InfoItem class
         by passing in the final dictionary to save in a csv file.
 
         :param response: url of a particular news item to be parsed
         """
         soup = BeautifulSoup(response.text, 'lxml')
-        my_dict = self.more_info_dict(soup)
+        my_dict = self.more_info_data(soup)
         # we take from the response url parameter, using the 'response.url' command
         my_dict['url'] = response.url
 
         yield InfoItem(**my_dict)
 
-    def more_info_dict(self, soup):
+    def more_info_data(self, soup):
         """
         The function returns a dictionary with the necessary data about the news.
         Gets formatted tags using the get_tegs function,
@@ -117,8 +117,8 @@ class MySpider(scrapy.Spider):
         :return: formatted news tags in the format 'str'
         """
         midlle_list = []
-        for i in main_list:
-            midlle_list.append('#' + i.text.capitalize())
+        for item in main_list:
+            midlle_list.append('#' + item.text.capitalize())
         result_string = ', '.join(midlle_list)
         return result_string
 
