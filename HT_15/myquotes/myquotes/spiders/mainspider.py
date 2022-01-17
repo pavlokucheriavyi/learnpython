@@ -1,9 +1,9 @@
-from urllib.parse import urljoin                             # import 'urljoin' for url's concatenation
-import scrapy                                                # import library scrapy for parsing
-from bs4 import BeautifulSoup                                # import library BeautifulSoup for parsing
+from urllib.parse import urljoin                               # import 'urljoin' for url's concatenation
+import scrapy                                                  # import library scrapy for parsing
+from bs4 import BeautifulSoup                                  # import library BeautifulSoup for parsing
 
-from myquotes.items import InfoItem                          # import class InfoItem for initialize the scraper fields
-from myquotes.pipelines import var_for_spider                # import the variable to determine the date of the myquotes to be parsed
+from myquotes.enter_function import var_for_spider             # import the variable to determine the date of the news to be parsed
+from myquotes.items import InfoItem                            # import class InfoItem for initialize the scraper fields
 
 
 class MySpider(scrapy.Spider):
@@ -64,6 +64,18 @@ class MySpider(scrapy.Spider):
                 url=link,
                 callback=self.more_info
             )
+        # find the next news page, and pass url of this page
+        # to the 'parse_page' function for parsing using yield method.
+        # If there is no page, then terminate the function.
+        next_page = soup.select_one('a.next.page-numbers')
+        if not next_page:
+            return
+        next_url = next_page.get('href')
+        yield scrapy.Request(
+            url=next_url,
+            callback=self.parse_page
+        )
+
 
     def parse_news(self, soup):
         """
@@ -76,6 +88,7 @@ class MySpider(scrapy.Spider):
         return {
             'url': soup.select_one('h2.title-cat-post > a').get('href')
         }
+
 
     def more_info(self, response):
         """

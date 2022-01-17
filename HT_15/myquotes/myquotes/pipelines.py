@@ -1,49 +1,12 @@
 # -*- coding: utf-8 -*-
 # Define your item pipelines here
 
-import os                                               # import os to work with the operating system
-from datetime import datetime                           # import the datetime module for date processing
-from pathlib import Path                                # import Path to create a specific path
-from scrapy.exporters import CsvItemExporter            # import this class to save the data in a csv file
+import os                                                      # import os to work with the operating system
+from pathlib import Path                                       # import Path to create a specific path
+from scrapy.exporters import CsvItemExporter                   # import this class to save the data in a csv file
+from myquotes.enter_function import var_for_name_of_file       # import the variable to csv file name
 
-from myquotes.items import InfoItem                     # import this class to verify correspondence of the set fields
-
-
-def enter_date():
-    """
-    The function asks the user to enter the date
-    and checks if it is correct
-
-    :return: date entered by the client
-    """
-    flag = True
-    while flag:
-        try:
-            date = input('Enter the date of the news you would like to read, '
-                         'in format - day, month, year. example(5.1.2022): ')
-
-            date_format = "%d.%m.%Y"
-            start = datetime.strptime(date, date_format)
-            now = datetime.now()
-
-            if start > now:
-                print('Your date in the future, please enter again')
-            else:
-                my_string = date.split('.')
-                # the var 'res_string' initializes the date in a format
-                # suitable for concatenation from the main scraper url
-                res_string = "/".join(reversed(my_string)) + '/'
-                # with return exits the infinite loop if the date is entered correctly
-                return res_string
-        except ValueError:
-            print('You entered the wrong date. Please repeat again. Example(12.11.2021)')
-
-
-# a variable to send the date to the scraper
-var_for_spider = enter_date()
-# the variable formats the result of the function 'enter_date'
-# function to pass the date in the name of the future csv file
-var_for_name_of_file = '_'.join(var_for_spider.split('/'))[:-1:]
+from myquotes.items import InfoItem                            # import this class to verify correspondence of the set fields
 
 
 class SaveToCSVPipeLine(object):
@@ -153,6 +116,5 @@ class SaveToCSVPipeLineInfo(SaveToCSVPipeLine):
         return item
 
 
-# print(help(enter_date))                                  # uncomment one of these functions to see the documentation
-# print(help(SaveToCSVPipeLine()))
+# print(help(SaveToCSVPipeLine()))                               # uncomment one of these functions to see the documentation
 # print(help(SaveToCSVPipeLineInfo()))
