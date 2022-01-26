@@ -99,6 +99,8 @@ class MyClass(object):
 
         # use regular expressions to remove html tags from the text
         my_dict['text'] = re.sub('<[^>]*>', '', my_dict['text'])
+        my_dict['text'] = re.sub("&#x2F;", "/", my_dict['text'])
+        my_dict['text'] = re.sub("&#x27;", "'", my_dict['text'])
 
         my_dict['kids'] = list(map(str, my_dict['kids']))
         my_dict['kids'] = ', '.join(my_dict['kids'])
