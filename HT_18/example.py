@@ -1,15 +1,16 @@
 import requests                           # import for HTTP requests
 import json                               # import to work with json objects
 import csv                                # import for work with csv files
-import re                                 # to work with regular expressions
+import re                                 # import to work with regular expressions
+import sys                                # import to access some variables used or supported by the interpreter
 
+# list of command line arguments passed to the Python script
+commands_list = sys.argv
 
 class MyClass(object):
     """
        A class for parsing user article categories
-
        ...
-
        Atributes
        ----------
        categories : list
@@ -24,19 +25,19 @@ class MyClass(object):
         self.category = self.enter_category()
         self.url = f'https://hacker-news.firebaseio.com/v0/{self.category}.json?print=pretty'
 
+
+
     def enter_category(self):
         """
-        The function to determine the category we
-        need for parsing
+        The function determines whether there is a category
+        to be parsed and returns the category if it is specified
 
         :return: the category we need
         """
-        input_string = input('Please enter one of these categories: "askstories", '
-                             '"showstories", "newstories", "jobstories": ')
-        if input_string in self.categories:
-            return input_string
-        elif input_string.strip() == '':
+        if len(commands_list) != 2:
             return 'newstories'
+        elif commands_list[1] in self.categories:
+            return commands_list[1]
         else:
             raise TypeError('Your category does not belong on the list.')
 
@@ -44,7 +45,6 @@ class MyClass(object):
         """
         The function to get a json object with the
         id of the articles, using a request
-
         :return: a json object with the articles id
         """
         page = requests.get(self.url)
@@ -57,7 +57,6 @@ class MyClass(object):
         """
         The function for parsing the data of articles, of a specified
         category and collecting these articles into a final list
-
         :return: list with json objects of our articles
         """
         main_list = self.parse_category_page()
@@ -97,7 +96,7 @@ class MyClass(object):
             if i not in my_dict:
                 my_dict[i] = ' '
 
-        # use regular expressions to remove html tags from the text
+        # to replace unreadable elements from the text:
         my_dict['text'] = re.sub('<[^>]*>', '', my_dict['text'])
         my_dict['text'] = re.sub("&#x2F;", "/", my_dict['text'])
         my_dict['text'] = re.sub("&#x27;", "'", my_dict['text'])
@@ -110,8 +109,3 @@ class MyClass(object):
 
 obj_1 = MyClass()
 obj_1.write_csv()
-
-
-
-
-
