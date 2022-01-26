@@ -7,6 +7,7 @@ import sys                                # import to access some variables used
 # list of command line arguments passed to the Python script
 commands_list = sys.argv
 
+
 class MyClass(object):
     """
        A class for parsing user article categories
