@@ -46,6 +46,7 @@ class MyClass(object):
         """
         The function to get a json object with the
         id of the articles, using a request
+
         :return: a json object with the articles id
         """
         page = requests.get(self.url)
@@ -58,6 +59,7 @@ class MyClass(object):
         """
         The function for parsing the data of articles, of a specified
         category and collecting these articles into a final list
+
         :return: list with json objects of our articles
         """
         main_list = self.parse_category_page()
@@ -66,9 +68,7 @@ class MyClass(object):
             data_of_request = requests.get(f'https://hacker-news.firebaseio.com/v0/item/{id_story}.json?print=pretty')
             get_data_story = json.loads(data_of_request.text)
 
-            result_dict = self.format_data(get_data_story)
-
-            result_list.append(result_dict)
+            result_list.append(get_data_story)
 
         return result_list
 
@@ -78,34 +78,63 @@ class MyClass(object):
         """
         with open('result.csv', 'w') as file:
             file_writer = csv.writer(file, delimiter='*')
-            result = self.parse_stories()
 
-            file_writer.writerow(['by', 'descendants', 'id', 'kids', 'score', 'text', 'time', 'title', 'type', 'url'])
-            for item in result:
-                file_writer.writerow([item['by'], item['descendants'], item['id'], item['kids'], item['score'],
-                                      item['text'], item['time'], item['title'], item['type'], item['url']])
+            result_of_function = self.format_data()
+            final_list_to_csv = result_of_function[0]
+            final_list_keys = result_of_function[1]
 
-    def format_data(self, my_dict):
+            file_writer.writerow(final_list_keys)
+            for item in final_list_to_csv:
+                # collect the data in the dictionary in order for correct writing to the csv file
+                values_list = []
+                for key in final_list_keys:
+                    values_list.append(item[key])
+                file_writer.writerow(values_list)
+
+
+    def format_data(self):
         """
-        The function for formatting our json objects as needed
-        :param my_dict: a list with json objects that store the data
-        :return: the final list with json objects that store the data
-        """
-        values_list = ['by', 'descendants', 'id', 'kids', 'score', 'text', 'time', 'title', 'type', 'url']
+        The function for formatting our json objects as needed.
+        The function also defines the maximum number of fields
+        of our articles to be written to the csv file
 
-        for i in values_list:
-            if i not in my_dict:
-                my_dict[i] = ' '
+        :return: 1) the final list with json objects that store the data
+                 2) all possible keys to write to the csv file
+
+        """
+        stories_list = self.parse_stories()
+        max_len = 0
+        result_list_keys = None
+
+        # define the maximum possible number of fields to write to the csv file
+        for dictionary in stories_list:
+            if len(dictionary) > max_len:
+                max_len = len(dictionary)
+
+        for dictionary in stories_list:
+            if len(dictionary) == max_len:
+                result_list_keys = list(dictionary.keys())
+                break
+
+        # if there is no desired key and value, set an empty field
+        for dictionary in stories_list:
+            for key in result_list_keys:
+                if key not in dictionary:
+                    dictionary[key] = ' '
 
         # to replace unreadable elements from the text:
-        my_dict['text'] = re.sub('<[^>]*>', '', my_dict['text'])
-        my_dict['text'] = re.sub("&#x2F;", "/", my_dict['text'])
-        my_dict['text'] = re.sub("&#x27;", "'", my_dict['text'])
+        for dictionary in stories_list:
+            for key in result_list_keys:
+                if key == 'text':
+                    dictionary[key] = re.sub('<[^>]*>', '', dictionary[key])
+                    dictionary[key] = re.sub("&#x2F;", "/", dictionary[key])
+                    dictionary[key] = re.sub("&#x27;", "'", dictionary[key])
 
-        my_dict['kids'] = list(map(str, my_dict['kids']))
-        my_dict['kids'] = ', '.join(my_dict['kids'])
+                elif key == 'kids':
+                    dictionary[key] = list(map(str, dictionary[key]))
+                    dictionary[key] = ', '.join(dictionary[key])
 
-        return my_dict
+        return stories_list, result_list_keys
 
 
 obj_1 = MyClass()
