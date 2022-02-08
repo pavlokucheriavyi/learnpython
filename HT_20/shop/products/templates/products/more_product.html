@@ -1,0 +1,37 @@
+{% extends "products/base.html" %}
+{% block content %}
+{% if messages %}
+    {% for mess in messages %}
+      <div class="alert alert-success" role="alert">{{mess}}</div>
+    {% endfor %}
+{% endif %}
+    {% for i in result_list %}
+      <div class="alert alert-light">
+        <h1>{{i.name}}</h1>
+        <p>{{i.description}}</p>
+        <div class="row">
+          <div class="post">
+            <div class="post__info">
+              <span class="text-muted">Price: {{i.price}} $</span>
+            </div>
+          </div>
+        </div>
+      <hr>
+      <a href="{% url 'update' i.id %}" style="text-decoration: none;">
+        <button type="Submit" name="submit_phones" value="Phones" class="btn btn-primary more">Edit</button>
+      </a>
+    {% if user.is_superuser %}
+      <a href="{% url 'delete' i.id %}">
+        <button type="Submit" name="submit_phones" value="Phones" class="btn btn-danger del">Delete</button>
+      </a>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <form action="{% url 'cart:cart_add' i.id %}" method="post" class="val">
+          {{ cart_product_form }}
+          {% csrf_token %}
+        <input type="submit" value="In Cart" class="btn btn-outline-success more">
+      </form>
+    {% endif %}
+      </div>
+    {% endfor %}
+{% endblock %}

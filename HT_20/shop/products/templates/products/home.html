@@ -1,0 +1,43 @@
+{% extends "products/base.html" %}
+{% block content %}
+    {% if messages %}
+    {% for mess in messages %}
+    {% if mess.tags == "error" %}
+      <div class="alert alert-danger" role="alert">{{mess}}</div>
+    {% else %}
+      <div class="alert alert-success" role="alert">{{mess}}</div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    <form action="" method="post" class="filters">
+        {% csrf_token %}
+        <a href="{% url 'home' %}">
+            <button type="Submit" name="submit_phones" value="Phones" class="btn btn-outline-primary mr">Phones</button>
+        </a>
+        <a href="{% url 'home' %}">
+            <button type="Submit" name="submit_headphones" value="Headphones" class="btn btn-outline-success mr">Headphones</button>
+        </a>
+        <a href="{% url 'home' %}">
+            <button type="Submit" name="submit_notebooks" value="Notebooks" class="btn btn-outline-info mr">Notebooks</button>
+        </a>
+        <a href="{% url 'home' %}">
+            <button type="Submit" name="submit_keys" value="Keys for phones" class="btn btn-outline-dark">Keys for phones</button>
+        </a>
+    </form>
+    {% for i in products_list %}
+        <div class="alert alert-light">
+        <h1>{{i.name}}</h1>
+        <p>{{i.description}}</p>
+        <div class="row">
+          <div class="post">
+            <div class="post__info">
+              <span class="text-muted">Price: {{i.price}} $</span>
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'more' i.id %}">
+          <button type="Submit" name="submit_phones" value="Phones" class="btn btn-outline-warning more">More</button>
+        </a>
+        </div>
+    {% endfor %}
+{% endblock %}
