@@ -1,0 +1,93 @@
+body {
+   background: #F8F8FF;
+}
+
+main {
+    padding-top: 56px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 90;
+}
+
+.navbar a {
+  color: white;
+}
+
+.alert-light {
+  border-color: #bfbfbf;
+}
+
+.form-register.auth input {
+  display: block;
+  width: 100%;
+  margin-top: 3px;
+  border: 1px solid silver;
+  padding: 1%;
+  border-radius: 3px;
+}
+
+.mr {
+    margin-right: 9%;
+}
+
+.nav-item{
+  margin: 0px 10px 0px 0px;
+}
+
+.more {
+    margin: 4px 0px 0px 0px;
+}
+
+.total {
+  border-top: 1px solid grey;
+  margin-top: 15px;
+}
+
+.val {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.val input {
+  margin-left: auto;
+}
+
+.del {
+    margin: 4px 0px 0px 468px;
+}
+.con{
+  color: white!important;
+
+}
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.navbar-collapse {
+  flex: none;
+}
+
+.filters a {
+  text-decoration: none;
+}
+
+.form-register {
+  padding: 10px;
+  background: #F0FFF0;
+  border: 2px solid silver;
+  margin-top: 20px;
+  width: 500px;
+}
+
+.post{
+  display: flex;
+  align-items: center;
+}
